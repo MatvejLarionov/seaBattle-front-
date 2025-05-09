@@ -1,0 +1,27 @@
+@font-face {
+  font-family: "lemon";
+  src: url("/fonts/Lemon-Regular.ttf");
+}
+
+body {
+  font-family: "lemon";
+}
+
+input {
+  font-family: "lemon";
+}
+
+button {
+  font-family: "lemon";
+  transition: 0.2s;
+}
+
+button:hover {
+  transform: scale(1.1);
+  transition: 0.2s;
+}
+
+button:active {
+  filter: invert(1);
+  transition: 0.01s;
+}
