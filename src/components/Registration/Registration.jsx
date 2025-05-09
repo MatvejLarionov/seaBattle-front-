@@ -1,3 +1,4 @@
+import { userApi } from "../../api/userApi"
 import styles from "./Registration.module.css"
 export default function Registration() {
 
@@ -12,6 +13,7 @@ export default function Registration() {
             login: document.getElementById("inpLogin").value.trim(),
             password: document.getElementById("inpPassword").value.trim()
           }
+          userApi.postUser(user).then(res=>console.log(res.data))
         }} className={styles.submit}>submit</button>
       </form>
     </div>
