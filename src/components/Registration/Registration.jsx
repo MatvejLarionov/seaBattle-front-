@@ -1,7 +1,11 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { userApi } from "../../api/userApi"
 import styles from "./Registration.module.css"
+import { UserDataContext } from "../../context/UserDataContext"
+import { useNavigate } from "react-router-dom"
 export default function Registration() {
+  const navigate = useNavigate()
+  const { user, setUser } = useContext(UserDataContext)
   const [error, setError] = useState(" ")
   const errorMessages = {
     loginRepeat: "such login already exists",
@@ -24,11 +28,13 @@ export default function Registration() {
             setError(errorMessages.emptyFields)
             return
           }
-          userApi.registerUser(user).then(res => {
-            if (res.error)
-              setError(errorMessages[res.error])
+          userApi.registerUser(user).then(response => {
+            if (response.error)
+              setError(errorMessages[response.error])
             else {
-              console.log(res)
+              sessionStorage.setItem("asdf", response.id)
+              setUser(response)
+              navigate("/main")
             }
           })
         }} className={styles.submit}>submit</button>

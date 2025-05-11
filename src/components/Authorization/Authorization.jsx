@@ -1,7 +1,11 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { userApi } from "../../api/userApi"
 import styles from "./Authorization.module.css"
+import { UserDataContext } from "../../context/UserDataContext"
+import { useNavigate } from "react-router-dom"
 export default function Authorization() {
+  const navigate = useNavigate()
+  const { user, setUser } = useContext(UserDataContext)
   const [error, setError] = useState(" ")
   const errorMessages = {
     emptyFields: "fill in the fields",
@@ -23,11 +27,13 @@ export default function Authorization() {
             setError(errorMessages.emptyFields)
             return
           }
-          userApi.authorizeUser(user).then(res => {
-            if (res.error)
-              setError(errorMessages[res.error])
+          userApi.authorizeUser(user).then(response => {
+            if (response.error)
+              setError(errorMessages[response.error])
             else {
-              console.log(res)
+              sessionStorage.setItem("asdf", response.id)
+              setUser(response)
+              navigate("/main")
             }
           })
         }} className={styles.submit}>submit</button>

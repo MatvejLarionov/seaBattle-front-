@@ -6,6 +6,10 @@ export const userApi = {
     baseURL: `${serverUrl}/users`,
     headers: { "Content-Type": "application/json" }
   }),
+  getUser(id) {
+    return this.userAxios.get(`/${id}`)
+      .then(res => JSON.parse(res.data))
+  },
   registerUser(user) {
     return this.userAxios.post("/registration", JSON.stringify(user))
       .then(res => JSON.parse(res.data))
