@@ -24,7 +24,7 @@ export default function Registration() {
             setError(errorMessages.emptyFields)
             return
           }
-          userApi.postUser(user).then(res => {
+          userApi.registerUser(user).then(res => {
             if (res.error)
               setError(errorMessages[res.error])
             else {
