@@ -5,6 +5,7 @@ import Registration from './components/Registration/Registration'
 import Authorization from './components/Authorization/Authorization'
 import UserDataContextProvider from './context/UserDataContext'
 import MainPage from './components/MainPage/MainPage'
+import ProfileEditor from './components/ProfileEditor/ProfileEditor'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path='/registration' element={<Registration />} />
             <Route path='/authorization' element={<Authorization />} />
             <Route path='/main' element={<MainPage />} />
+            <Route path='/profileEditor/*' element={<ProfileEditor />} />
           </Routes>
         </UserDataContextProvider>
       </Router>
