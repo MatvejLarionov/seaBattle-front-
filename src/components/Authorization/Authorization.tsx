@@ -3,13 +3,15 @@ import { userApi } from "../../api/userApi"
 import styles from "./Authorization.module.css"
 import { UserDataContext } from "../../context/UserDataContext"
 import { useNavigate } from "react-router-dom"
+import { ServerErrors } from "../../types/enums"
+import type { User } from "../../types/User"
 export default function Authorization() {
   const navigate = useNavigate()
-  const { user, setUser } = useContext(UserDataContext)
-  const [error, setError] = useState(" ")
-  const errorMessages = {
-    emptyFields: "fill in the fields",
-    notFound: "incorrect login or password"
+  const { setUser } = useContext(UserDataContext)
+  const [error, setError] = useState<string>(" ")
+  const errorMessages: { [key in ServerErrors]?: string } = {
+    [ServerErrors.emptyFields]: "fill in the fields",
+    [ServerErrors.notFound]: "incorrect login or password"
   }
   return (
     <div className={styles.container}>
@@ -20,19 +22,20 @@ export default function Authorization() {
         <button onClick={event => {
           event.preventDefault()
           const user = {
-            login: document.getElementById("inpLogin").value.trim(),
-            password: document.getElementById("inpPassword").value.trim()
+            login: (document.getElementById("inpLogin") as HTMLInputElement).value.trim(),
+            password: (document.getElementById("inpPassword") as HTMLInputElement).value.trim()
           }
           if (!user.login || !user.password) {
-            setError(errorMessages.emptyFields)
+            setError(errorMessages[ServerErrors.emptyFields] as string)
             return
           }
           userApi.authorizeUser(user).then(response => {
-            if (response.error)
-              setError(errorMessages[response.error])
+            if (response.error !== undefined)
+              setError(errorMessages[response.error] as string)
             else {
-              sessionStorage.setItem("asdf", response.id)
-              setUser(response)
+              const newUser: User = response as User
+              sessionStorage.setItem("asdf", newUser.id)
+              setUser(newUser)
               navigate("/main")
             }
           })

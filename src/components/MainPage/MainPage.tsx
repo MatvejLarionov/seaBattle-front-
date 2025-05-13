@@ -7,7 +7,7 @@ export default function MainPage() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <img className={styles.avatar} src={user.avatar || "http://localhost:3000/img/ava.jpg"} alt="" />
+        <img className={styles.avatar} src={"http://localhost:3000/img/ava.jpg"} alt="" />
         <p>{user.login}</p>
       </header>
       <main className={styles.main}>

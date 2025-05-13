@@ -3,14 +3,16 @@ import { userApi } from "../../api/userApi"
 import styles from "./Registration.module.css"
 import { UserDataContext } from "../../context/UserDataContext"
 import { useNavigate } from "react-router-dom"
+import { ServerErrors } from "../../types/enums"
+import type { User } from "../../types/User"
 export default function Registration() {
   const navigate = useNavigate()
-  const { user, setUser } = useContext(UserDataContext)
+  const { setUser } = useContext(UserDataContext)
   const [error, setError] = useState(" ")
-  const errorMessages = {
-    loginRepeat: "such login already exists",
-    emptyFields: "fill in the fields",
-    passwordIsNotCorrect: "The password must contain a symbol other than numbers and its size must be greater than eight"
+  const errorMessages: { [key in ServerErrors]?: string } = {
+    [ServerErrors.loginRepeat]: "such login already exists",
+    [ServerErrors.emptyFields]: "fill in the fields",
+    [ServerErrors.passwordIsNotCorrect]: "The password must contain a symbol other than numbers and its size must be greater than eight"
   }
   return (
     <div className={styles.container}>
@@ -21,19 +23,20 @@ export default function Registration() {
         <button onClick={event => {
           event.preventDefault()
           const user = {
-            login: document.getElementById("inpLogin").value.trim(),
-            password: document.getElementById("inpPassword").value.trim()
+            login: (document.getElementById("inpLogin") as HTMLInputElement).value.trim(),
+            password: (document.getElementById("inpPassword") as HTMLInputElement).value.trim()
           }
           if (!user.login || !user.password) {
-            setError(errorMessages.emptyFields)
+            setError(errorMessages[ServerErrors.emptyFields] as string)
             return
           }
           userApi.registerUser(user).then(response => {
-            if (response.error)
-              setError(errorMessages[response.error])
+            if (response.error !== undefined)
+              setError(errorMessages[response.error] as string)
             else {
-              sessionStorage.setItem("asdf", response.id)
-              setUser(response)
+              const newUser: User = response as User
+              sessionStorage.setItem("asdf", newUser.id)
+              setUser(newUser)
               navigate("/main")
             }
           })
