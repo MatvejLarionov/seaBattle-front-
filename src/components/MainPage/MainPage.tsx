@@ -1,9 +1,11 @@
 import styles from "./MainPage.module.css"
 import { useContext } from "react"
 import { UserDataContext } from "../../context/UserDataContext"
+import { useNavigate } from "react-router-dom"
 
 export default function MainPage() {
-  const { user, setUser } = useContext(UserDataContext)
+  const { user } = useContext(UserDataContext)
+  const navigate = useNavigate()
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -11,7 +13,9 @@ export default function MainPage() {
         <p>{user.login}</p>
       </header>
       <main className={styles.main}>
-        <button className={styles.btnPlay}>play</button>
+        <button onClick={() => {
+          navigate("/connection")
+        }} className={styles.btnPlay}>play</button>
       </main>
     </div>
   )

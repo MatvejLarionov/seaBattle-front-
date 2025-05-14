@@ -6,6 +6,7 @@ import Authorization from './components/Authorization/Authorization'
 import UserDataContextProvider from './context/UserDataContext'
 import type { JSX } from 'react'
 import MainPage from './components/MainPage/MainPage'
+import ConnectionPage from './components/ConnectionPage/ConnectionPage'
 // import ProfileEditor from './components/ProfileEditor/ProfileEditor'
 
 function App(): JSX.Element {
@@ -19,6 +20,7 @@ function App(): JSX.Element {
             <Route path='/authorization' element={<Authorization />} />
             <Route path='/main' element={<MainPage />} />
             {/* <Route path='/profileEditor/*' element={<ProfileEditor />} /> */}
+            <Route path='/connection' element={<ConnectionPage />} />
           </Routes>
         </UserDataContextProvider>
       </Router>
