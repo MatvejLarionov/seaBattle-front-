@@ -4,7 +4,7 @@ import styles from "./Registration.module.css"
 import { UserDataContext } from "../../context/UserDataContext"
 import { useNavigate } from "react-router-dom"
 import { ServerErrors } from "../../types/enums"
-import type { User } from "../../types/User"
+import type { User, UserForServer } from "../../types/User"
 export default function Registration() {
   const navigate = useNavigate()
   const { setUser } = useContext(UserDataContext)
@@ -22,7 +22,7 @@ export default function Registration() {
         <p className={styles.error}>{error}</p>
         <button onClick={event => {
           event.preventDefault()
-          const user = {
+          const user: UserForServer = {
             login: (document.getElementById("inpLogin") as HTMLInputElement).value.trim(),
             password: (document.getElementById("inpPassword") as HTMLInputElement).value.trim()
           }
@@ -31,10 +31,10 @@ export default function Registration() {
             return
           }
           userApi.registerUser(user).then(response => {
-            if (response.error !== undefined)
+            if ("error" in response)
               setError(errorMessages[response.error] as string)
             else {
-              const newUser: User = response as User
+              const newUser: User = response
               sessionStorage.setItem("asdf", newUser.id)
               setUser(newUser)
               navigate("/main")
@@ -42,6 +42,6 @@ export default function Registration() {
           })
         }} className={styles.submit}>submit</button>
       </form>
-    </div>
+    </div >
   )
 }

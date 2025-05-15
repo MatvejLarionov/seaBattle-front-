@@ -10,7 +10,7 @@ export const UserDataContext = createContext
     setUser: React.Dispatch<React.SetStateAction<User>>;
   }>
 export default function UserDataContextProvider({ children }: { children?: JSX.Element | string }) {
-  const [user, setUser] = useState<User>({ login: "", id: "" })
+  const [user, setUser] = useState<User>({ login: "", avatar: "", id: "" })
   const location = useLocation()
   const navigate = useNavigate()
   const arrPathname = ["/", "/registration", "/authorization"]

@@ -6,7 +6,7 @@ import Authorization from './components/Authorization/Authorization'
 import UserDataContextProvider from './context/UserDataContext'
 import type { JSX } from 'react'
 import MainPage from './components/MainPage/MainPage'
-// import ProfileEditor from './components/ProfileEditor/ProfileEditor'
+import ProfileEditor from './components/ProfileEditor/ProfileEditor'
 
 function App(): JSX.Element {
   return (
@@ -18,7 +18,7 @@ function App(): JSX.Element {
             <Route path='/registration' element={<Registration />} />
             <Route path='/authorization' element={<Authorization />} />
             <Route path='/main' element={<MainPage />} />
-            {/* <Route path='/profileEditor/*' element={<ProfileEditor />} /> */}
+            <Route path='/profileEditor/*' element={<ProfileEditor />} />
           </Routes>
         </UserDataContextProvider>
       </Router>
