@@ -5,15 +5,11 @@ import { UserDataContext } from "../../context/UserDataContext"
 import { useNavigate } from "react-router-dom"
 import { ServerErrors } from "../../types/enums"
 import type { User, UserForServer } from "../../types/User"
+import { errorMessages } from "../../constants/errorMessagesForForm"
 export default function Registration() {
   const navigate = useNavigate()
   const { setUser } = useContext(UserDataContext)
   const [error, setError] = useState(" ")
-  const errorMessages: { [key in ServerErrors]?: string } = {
-    [ServerErrors.loginRepeat]: "such login already exists",
-    [ServerErrors.emptyFields]: "fill in the fields",
-    [ServerErrors.passwordIsNotCorrect]: "The password must contain a symbol other than numbers and its size must be greater than eight"
-  }
   return (
     <div className={styles.container}>
       <form className={styles.form}>

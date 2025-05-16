@@ -5,14 +5,11 @@ import { UserDataContext } from "../../context/UserDataContext"
 import { useNavigate } from "react-router-dom"
 import { ServerErrors } from "../../types/enums"
 import type { User, UserForServer } from "../../types/User"
+import { errorMessages } from "../../constants/errorMessagesForForm"
 export default function Authorization() {
   const navigate = useNavigate()
   const { setUser } = useContext(UserDataContext)
   const [error, setError] = useState<string>(" ")
-  const errorMessages: { [key in ServerErrors]?: string } = {
-    [ServerErrors.emptyFields]: "fill in the fields",
-    [ServerErrors.notFound]: "incorrect login or password"
-  }
   return (
     <div className={styles.container}>
       <form className={styles.form}>
