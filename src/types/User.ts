@@ -3,7 +3,18 @@ export interface User {
   avatar: string
   id: string
 }
-export interface UserForServer {
+
+export interface UserDataForRegistration {
   login: string
   password: string
+}
+export interface UserDataForAuthorization {
+  login: string
+  password: string
+}
+
+export interface UserDataForUpdate {
+  login?: string
+  password?: string
+  oldPassword: string
 }

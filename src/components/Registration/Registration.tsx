@@ -4,7 +4,7 @@ import styles from "./Registration.module.css"
 import { UserDataContext } from "../../context/UserDataContext"
 import { useNavigate } from "react-router-dom"
 import { ServerErrors } from "../../types/enums"
-import type { User, UserForServer } from "../../types/User"
+import type { User, UserDataForRegistration } from "../../types/User"
 import { errorMessages } from "../../constants/errorMessagesForForm"
 export default function Registration() {
   const navigate = useNavigate()
@@ -18,7 +18,7 @@ export default function Registration() {
         <p className={styles.error}>{error}</p>
         <button onClick={event => {
           event.preventDefault()
-          const user: UserForServer = {
+          const user: UserDataForRegistration = {
             login: (document.getElementById("inpLogin") as HTMLInputElement).value.trim(),
             password: (document.getElementById("inpPassword") as HTMLInputElement).value.trim()
           }

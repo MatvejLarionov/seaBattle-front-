@@ -1,22 +1,22 @@
 .container {
-  margin: 0 auto;
-  max-width: 400px;
-  border: 10px double green;
-  height: 200px;
-  border-radius: 15px;
+  display: flex;
 }
 .linksList{
-  width: 100%;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
 }
 
 .form {
+  margin: 0 auto;
+  flex-basis: 400px;
+  border: 10px double green;
+  height: 220px;
+  border-radius: 15px;
+
   display: flex;
   justify-content: space-around;
   flex-direction: column;
   align-items: center;
-  height: 100%;
 }
 
 .login,
