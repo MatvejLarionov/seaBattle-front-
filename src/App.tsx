@@ -7,6 +7,7 @@ import UserDataContextProvider from './context/UserDataContext'
 import type { JSX } from 'react'
 import MainPage from './components/MainPage/MainPage'
 import ProfileEditor from './components/ProfileEditor/ProfileEditor'
+import Game from './components/Game/Game'
 
 function App(): JSX.Element {
   return (
@@ -19,6 +20,7 @@ function App(): JSX.Element {
             <Route path='/authorization' element={<Authorization />} />
             <Route path='/main' element={<MainPage />} />
             <Route path='/profileEditor/*' element={<ProfileEditor />} />
+            <Route path='/game' element={<Game />} />
           </Routes>
         </UserDataContextProvider>
       </Router>
