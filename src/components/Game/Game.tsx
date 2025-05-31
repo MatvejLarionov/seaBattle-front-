@@ -1,15 +1,15 @@
-import { io } from "socket.io-client";
-import { serverUrl } from "../../api/serverUrl";
-import { useContext, useEffect, useState, type JSX } from "react";
-import type { gamingSocket } from "../../types/gamingSocket";
+import { useContext, useEffect, type JSX } from "react";
 import { UserDataContext } from "../../context/UserDataContext";
-import Gamer from "../../types/gamer";
+import { GameStage } from "../../types/enums";
+import Connecting from "./Connecting/Connecting";
+import { GameDataContext } from "../../context/GameDataContext";
 
-const socket: gamingSocket = io(serverUrl, { autoConnect: false })
 export default function Game(): JSX.Element {
   const { user } = useContext(UserDataContext)
-  const [gamer, setGamer] = useState<Gamer>()
-  const [partner, setPartner] = useState<Gamer>()
+  const { gamer, socket } = useContext(GameDataContext)
+  const routerByGameStage: { [key in GameStage]?: JSX.Element } = {
+    [GameStage.connecting]: <Connecting />
+  }
   useEffect(() => {
     socket.connect()
     socket.emit("authorization", user.id)
@@ -17,7 +17,5 @@ export default function Game(): JSX.Element {
       socket.disconnect()
     }
   })
-  return (
-    <div>game</div>
-  )
+  return routerByGameStage[gamer.gameStage] as JSX.Element
 }
