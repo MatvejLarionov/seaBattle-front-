@@ -16,6 +16,6 @@ export default function Game(): JSX.Element {
     return () => {
       socket.disconnect()
     }
-  })
+  }, [user])
   return routerByGameStage[gamer.gameStage] as JSX.Element
 }

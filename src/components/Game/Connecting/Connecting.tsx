@@ -56,7 +56,7 @@ export default function Connecting(): JSX.Element {
       socket.off("rejectToJoin")
       socket.off("notFound")
     }
-  })
+  }, [])
 
   const btnListeners = {
     emitRequestToJoin(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
