@@ -3,6 +3,7 @@ import { userApi } from "../api/userApi";
 import { useLocation, useNavigate } from "react-router-dom";
 import type { JSX } from 'react'
 import type { User } from "../types/User";
+import Loader from "../components/Loader/Loader";
 export const UserDataContext = createContext
   <{ user: User, setUser: React.Dispatch<React.SetStateAction<User>> } | null>(null) as
   React.Context<{
@@ -14,20 +15,32 @@ export default function UserDataContextProvider({ children }: { children?: JSX.E
   const location = useLocation()
   const navigate = useNavigate()
   const arrPathname = ["/", "/registration", "/authorization"]
+  const redirectToTitle = (): void => {
+    if (!arrPathname.includes(location.pathname))
+      navigate("/")
+  }
   useEffect(() => {
     const userId = sessionStorage.getItem("asdf")
-    if (userId) {
-      userApi.getUser(userId).then(res => setUser(res as User))
+    if (!userId) {
+      redirectToTitle()
       return
     }
 
-    if (!arrPathname.includes(location.pathname))
-      navigate("/")
+    userApi.getUser(userId).then(data => {
+      if ("error" in data) {
+        redirectToTitle()
+        return
+      }
+      setUser(data)
+    })
   }, [])
   return (
-    <UserDataContext.Provider
-      value={{ user, setUser }}>
-      {children}
-    </UserDataContext.Provider>
+    user.id || arrPathname.includes(location.pathname) ?
+      <UserDataContext.Provider
+        value={{ user, setUser }}>
+        {children}
+      </UserDataContext.Provider>
+      :
+      <Loader style={{ width: "200px", height: "200px", margin: "10vh auto"}}/>
   )
 }
