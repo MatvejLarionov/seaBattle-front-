@@ -1,0 +1,20 @@
+import styles from "./MiniGamerMenu.module.css"
+import type { JSX } from "react";
+import type Gamer from "../../../types/gamer";
+import MiniUserMenu from "../../MiniUserMenu/MiniUserMenu";
+import { Status } from "../../../types/enums";
+
+export default function MiniGamerMenu({ gamer, style }: { gamer: Gamer, style?: React.CSSProperties }): JSX.Element {
+  const statusText: { [key in Status]: string } = {
+    [Status.connected]: "connected",
+    [Status.disconnected]: "disconnected"
+  }
+  return (
+    <div style={style} className={styles.container}>
+      <MiniUserMenu user={gamer.toUser()} isNavigateToProfileEditor={false} style={{ width: "100%" }} />
+      <p className={styles.status} style={{ color: gamer.status === Status.connected ? "green" : "red" }}>
+        {statusText[gamer.status]}
+      </p>
+    </div>
+  )
+}

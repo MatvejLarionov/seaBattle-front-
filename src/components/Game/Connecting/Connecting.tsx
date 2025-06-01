@@ -1,9 +1,6 @@
 import styles from "./Connecting.module.css"
 import { useContext, useEffect, useState, type JSX } from "react";
 import { GameDataContext } from "../../../context/GameDataContext";
-import type { User } from "../../../types/User";
-import Gamer from "../../../types/gamer";
-import { GameStage, Status } from "../../../types/enums";
 // const openDialog = (type: "request" | "reject" | "notFound" | "waiting") => {
 //   (document.getElementById(`dialog_${type}`) as HTMLDialogElement | null)?.showModal()
 // }
@@ -27,7 +24,7 @@ export default function Connecting(): JSX.Element {
       }
     }
   }
-  const { socket, setPartner } = useContext(GameDataContext)
+  const { socket } = useContext(GameDataContext)
   const [partnerLogin, setPartnerLogin] = useState<string>("")
   const dialogs = {
     request: createDialogManager(),
@@ -41,9 +38,6 @@ export default function Connecting(): JSX.Element {
       setPartnerLogin(partnerLoginArg)
       dialogs.request.open()
     })
-    socket.on("acceptToJoin", (partner: User) => {
-      setPartner(new Gamer(partner.login, partner.avatar, Status.connected, GameStage.connecting))
-    })
     socket.on("rejectToJoin", () => {
       dialogs.reject.open()
     })
@@ -52,7 +46,6 @@ export default function Connecting(): JSX.Element {
     })
     return () => {
       socket.off("requestToJoin")
-      socket.off("acceptToJoin")
       socket.off("rejectToJoin")
       socket.off("notFound")
     }

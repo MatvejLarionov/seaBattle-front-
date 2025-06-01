@@ -5,17 +5,17 @@ import styles from "./MiniUserMenu.module.css"
 import { type JSX } from "react";
 
 export default function MiniUserMenu(
-  { user, isNavigateToProfileEditor, scale = 1, }:
-    { user: User, isNavigateToProfileEditor: boolean, scale?: number }): JSX.Element {
+  { user, isNavigateToProfileEditor, style, }:
+    { user: User, isNavigateToProfileEditor: boolean, style?: React.CSSProperties }): JSX.Element {
   const navigate = useNavigate()
 
   return (
     <div onClick={() => {
       if (isNavigateToProfileEditor)
         navigate("/profileEditor")
-    }} style={{ transform: `scale(${scale})`, cursor: isNavigateToProfileEditor ? "pointer" : "auto" }} className={styles.container}>
+    }} style={{ ...style, cursor: isNavigateToProfileEditor ? "pointer" : "auto" }} className={styles.container}>
       <img className={styles.avatar} src={user.avatar || `${serverUrl}/usersAvatars/defaultAvatar.jpg`} alt="" />
-      <p>{user.login}</p>
+      <p className={styles.login}>{user.login}</p>
     </div>
   )
 }
