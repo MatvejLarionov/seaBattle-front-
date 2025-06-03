@@ -16,24 +16,40 @@ export default function Game(): JSX.Element {
   useEffect(() => {
     socket.connect()
     socket.emit("authorization", user.id)
+    socket.on("setGamer", (newGamer) => {
+      // console.log("gamer:")
+      // console.log(newGamer)
+      setGamer(gamer => {
+        return new Gamer(
+          newGamer.login !== undefined ? newGamer.login : gamer.login,
+          newGamer.avatar !== undefined ? newGamer.avatar : gamer.avatar,
+          newGamer.status !== undefined ? newGamer.status : gamer.status,
+          newGamer.gameStage !== undefined ? newGamer.gameStage : gamer.gameStage
+        )
+      }
+      )
+    })
+    socket.on("setPartner", (newPartner) => {
+      // console.log("partner:")
+      // console.log(newPartner)
+      if (!newPartner) {
+        setPartner(null)
+        return
+      }
+      setPartner(partner => {
+        return new Gamer(
+          newPartner.login !== undefined ? newPartner.login : partner?.login || "",
+          newPartner.avatar !== undefined ? newPartner.avatar : partner?.avatar || "",
+          newPartner.status !== undefined ? newPartner.status : partner?.status || Status.connected,
+          newPartner.gameStage !== undefined ? newPartner.gameStage : partner?.gameStage || GameStage.connecting
+        )
+      }
 
-    socket.on("setPartner", (partnerUser) => {
-      setPartner(new Gamer(partnerUser.login, partnerUser.avatar, Status.connected, gamer.gameStage))
-    })
-    socket.on("deletePartner", () => {
-      setPartner(null)
-    })
-    socket.on("setGameStage", (gameStage: GameStage) => {
-      setGamer(gamer => new Gamer(gamer.login, gamer.avatar, gamer.status, gameStage))
-    })
-    socket.on("setPartnerStatus", (status) => {
-      setPartner(partner => partner &&
-        new Gamer(partner.login, partner.avatar, status, partner.gameStage))
+      )
     })
     return () => {
+      socket.off("setGamer")
       socket.off("setPartner")
-      socket.off("deletePartner")
-      socket.off("setGameStage")
       socket.disconnect()
     }
   }, [])
