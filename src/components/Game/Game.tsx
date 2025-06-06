@@ -5,13 +5,16 @@ import Connecting from "./Connecting/Connecting";
 import { GameDataContext } from "../../context/GameDataContext";
 import Gamer from "../../types/gamer";
 import PreparingForGame from "./PreparingForGame/PreparingForGame";
+import FillingInField from "./FillingInField/FillingInField";
+import { Field } from "../../types/Field";
 
 export default function Game(): JSX.Element {
   const { user } = useContext(UserDataContext)
-  const { gamer, setGamer, setPartner, socket } = useContext(GameDataContext)
+  const { gamer, setGamer, setPartner, setField, setPartnerField, socket } = useContext(GameDataContext)
   const routerByGameStage: { [key in GameStage]?: JSX.Element } = {
     [GameStage.connecting]: <Connecting />,
-    [GameStage.preparingForGame]: <PreparingForGame />
+    [GameStage.preparingForGame]: <PreparingForGame />,
+    [GameStage.fillingInField]: <FillingInField />
   }
   useEffect(() => {
     socket.connect()
@@ -26,8 +29,7 @@ export default function Game(): JSX.Element {
           newGamer.status !== undefined ? newGamer.status : gamer.status,
           newGamer.gameStage !== undefined ? newGamer.gameStage : gamer.gameStage
         )
-      }
-      )
+      })
     })
     socket.on("setPartner", (newPartner) => {
       // console.log("partner:")
@@ -43,13 +45,24 @@ export default function Game(): JSX.Element {
           newPartner.status !== undefined ? newPartner.status : partner?.status || Status.connected,
           newPartner.gameStage !== undefined ? newPartner.gameStage : partner?.gameStage || GameStage.connecting
         )
-      }
-
-      )
+      })
+    })
+    socket.on("initField", (n: number, m: number) => {
+      setField(new Field(n, m))
+      setPartnerField(new Field(n, m))
+    })
+    socket.on("setOnField", (newField) => {
+      setField(field => field.getNewField(newField))
+    })
+    socket.on("setOnPartnerField", (newField) => {
+      setPartnerField(partnerField => partnerField.getNewField(newField))
     })
     return () => {
       socket.off("setGamer")
       socket.off("setPartner")
+      socket.off("initField")
+      socket.off("setOnField")
+      socket.off("setOnPartnerField")
       socket.disconnect()
     }
   }, [])
