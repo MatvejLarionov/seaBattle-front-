@@ -3,6 +3,7 @@ import { useContext, useEffect, type JSX } from "react";
 import { GameDataContext } from "../../../context/GameDataContext";
 import FieldComponent from "../FieldComponent/FieldComponent";
 import MiniGamerMenu from "../MiniGamerMenu/MiniGamerMenu";
+import { Status } from "../../../types/enums";
 let isMoving: boolean = false
 let oldIndex: number = -1
 let newIndex: number = -1
@@ -53,6 +54,17 @@ export default function FillingInField(): JSX.Element {
       socket.emit("turnClockwiseShip", index)
     }
   }
+
+  const isGameReady = gamer.status === Status.readyToPlay
+  const btnListeners = {
+    setGameReady() {
+      socket.emit("setGameReady", !isGameReady)
+    },
+    disconnect() {
+      socket.emit("deletePartner")
+    }
+  }
+
   useEffect(() => {
     socket.on("setOnField", redefineIndex)
     socket.on("fieldChangeIsCompleted", () => {
@@ -86,8 +98,8 @@ export default function FillingInField(): JSX.Element {
       </div>
       <nav className={styles.navContainer}>
         <nav className={styles.navContainer}>
-          <button className={styles.btnReadyToPlay}>ready to play</button>
-          <button className={styles.btnDisconnect}>leave</button>
+          <button onClick={btnListeners.setGameReady} className={styles.btnReadyToPlay}>{isGameReady && "not"} ready to play</button>
+          <button onClick={btnListeners.disconnect} className={styles.btnDisconnect}>leave</button>
         </nav>
       </nav>
     </div>

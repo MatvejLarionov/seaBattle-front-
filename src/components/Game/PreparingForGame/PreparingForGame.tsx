@@ -6,7 +6,7 @@ import { Status } from "../../../types/enums";
 
 export default function PreparingForGame(): JSX.Element {
   const { gamer, partner, socket } = useContext(GameDataContext)
-  const isGameReady = gamer.status === Status.readyToPlay ? true : false
+  const isGameReady = gamer.status === Status.readyToPlay
   const btnListeners = {
     setGameReady() {
       socket.emit("setGameReady", !isGameReady)
