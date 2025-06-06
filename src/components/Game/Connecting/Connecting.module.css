@@ -39,10 +39,16 @@
 
   outline: none;
 }
-.nav{
+
+.partnerLogin {
+  color: red;
+}
+
+.nav {
   display: flex;
   justify-content: space-around;
 }
+
 .btnDialogClose {
   color: red;
   background-color: aqua;
@@ -57,7 +63,7 @@
   border-radius: 15px;
 }
 
-.btnReject{
+.btnReject {
   color: red;
   background-color: aqua;
   border: 3px solid red;

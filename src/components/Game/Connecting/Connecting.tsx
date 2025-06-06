@@ -78,7 +78,7 @@ export default function Connecting(): JSX.Element {
       </form>
 
       <dialog open={dialogs.request.isOpen} id="dialog_request">
-        <p>player {partnerLogin} wants to join</p>
+        <p>player <span className={styles.partnerLogin}>{partnerLogin}</span> wants to join</p>
         <nav className={styles.nav}>
           <button className={styles.btnAccept} onClick={btnListeners.acceptToJoin}>accept</button>
           <button className={styles.btnReject} onClick={btnListeners.rejectToJoin}>reject</button>
@@ -86,12 +86,12 @@ export default function Connecting(): JSX.Element {
       </dialog>
 
       <dialog open={dialogs.reject.isOpen} id="dialog_reject">
-        <p>player {partnerLogin} declined the request</p>
+        <p>player <span className={styles.partnerLogin}>{partnerLogin}</span>  declined the request</p>
         <button className={styles.btnDialogClose} onClick={() => { dialogs.reject.close() }}>close</button>
       </dialog>
 
       <dialog open={dialogs.notFound.isOpen} id="dialog_notFound">
-        <p>player {partnerLogin} not found</p>
+        <p>player <span className={styles.partnerLogin}>{partnerLogin}</span> not found</p>
         <button className={styles.btnDialogClose} onClick={() => { dialogs.notFound.close() }}>close</button>
       </dialog>
 
