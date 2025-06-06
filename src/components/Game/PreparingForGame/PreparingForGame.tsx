@@ -2,11 +2,16 @@ import styles from "./PreparingForGame.module.css";
 import { useContext, type JSX } from "react";
 import MiniGamerMenu from "../MiniGamerMenu/MiniGamerMenu";
 import { GameDataContext } from "../../../context/GameDataContext";
+import { Status } from "../../../types/enums";
 
 export default function PreparingForGame(): JSX.Element {
-  const { gamer, partner,socket } = useContext(GameDataContext)
+  const { gamer, partner, socket } = useContext(GameDataContext)
+  const isGameReady = gamer.status === Status.readyToPlay ? true : false
   const btnListeners = {
-    disconnect(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    setGameReady() {
+      socket.emit("setGameReady", !isGameReady)
+    },
+    disconnect() {
       socket.emit("deletePartner")
     }
   }
@@ -18,8 +23,8 @@ export default function PreparingForGame(): JSX.Element {
         <MiniGamerMenu gamer={partner || gamer} />
       </div>
       <nav className={styles.navContainer}>
-        <button className={styles.btnReadyToPlay}>ready to play</button>
-        <button onClick={btnListeners.disconnect} className={styles.btnDisconnect}>disconnect</button>
+        <button onClick={btnListeners.setGameReady} className={styles.btnReadyToPlay}>{isGameReady && "not"} ready to play</button>
+        <button onClick={btnListeners.disconnect} className={styles.btnDisconnect}>leave</button>
       </nav>
     </div>
   )

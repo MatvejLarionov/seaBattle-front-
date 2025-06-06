@@ -7,12 +7,18 @@ import { Status } from "../../../types/enums";
 export default function MiniGamerMenu({ gamer, style }: { gamer: Gamer, style?: React.CSSProperties }): JSX.Element {
   const statusText: { [key in Status]: string } = {
     [Status.connected]: "connected",
-    [Status.disconnected]: "disconnected"
+    [Status.disconnected]: "disconnected",
+    [Status.readyToPlay]: "ready to play"
+  }
+  const statusColor: { [key in Status]: string } = {
+    [Status.connected]: "green",
+    [Status.disconnected]: "red",
+    [Status.readyToPlay]: "orange"
   }
   return (
     <div style={style} className={styles.container}>
       <MiniUserMenu user={gamer.toUser()} isNavigateToProfileEditor={false} style={{ width: "100%" }} />
-      <p className={styles.status} style={{ color: gamer.status === Status.connected ? "green" : "red" }}>
+      <p className={styles.status} style={{ color: statusColor[gamer.status] }}>
         {statusText[gamer.status]}
       </p>
     </div>
