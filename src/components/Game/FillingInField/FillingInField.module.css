@@ -1,17 +1,48 @@
 .container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
+  height: 90vh;
 }
 
 .fieldContainer {
-  margin: 0 auto;
-  width: 90vh;
-  height: 90vh;
-  flex-shrink: 0;
+  flex-basis: 90vh;
+  aspect-ratio: 1 / 1;
 }
 
-.btnLeave{
+.gamerContainer {
+  margin: 5px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  height: 300px;
+}
+
+.miniGamerMenu {
+  flex-direction: row;
+  font-size: 10px;
+  width: 120px;
+  height: 90px;
+}
+
+.navContainer {
+  margin: 5px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  height: 100px;
+}
+
+.btnReadyToPlay {
+  width: 100px;
+  height: 40px;
+  border: 2px solid green;
+  border-radius: 15px;
+  color: green;
+  background-color: aqua;
+}
+
+.btnDisconnect {
   width: 100px;
   height: 30px;
   border: 2px solid red;
@@ -20,26 +51,28 @@
   background-color: aqua;
 }
 
-/* .userContainer {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100px;
-  height: 180px;
-}  */
-
 
 @media (max-width:100vh) {
-  .container{
+  .container {
     flex-direction: column;
   }
-  /* .userContainer{
-    flex-wrap: nowrap;
-    transform: scale(0.5);
-    width: 100px;
-    height: 100px;
-  } */
+
+  .gamerContainer {
+    width: 100%;
+    flex-direction: row;
+    height: auto;
+  }
+
+  .navContainer {
+    width: 100%;
+    flex-direction: row;
+    height: auto;
+  }
+
   .fieldContainer {
     width: 95vw;
     height: 95vw;
+    flex-shrink: 0;
+    flex-basis: auto;
   }
 }

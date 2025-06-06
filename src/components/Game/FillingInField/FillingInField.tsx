@@ -69,10 +69,10 @@ export default function FillingInField(): JSX.Element {
   })
   return (
     <div className={styles.container}>
-      {/* <div className={styles.userContainer}>
-        <MiniGamerMenu style={{ width: "100%", height: "100%" }} gamer={gamer} />
-        <MiniGamerMenu style={{ width: "100%", height: "100%" }} gamer={partner || gamer} />
-      </div> */}
+      <div className={styles.gamerContainer}>
+        <MiniGamerMenu className={styles.miniGamerMenu} gamer={gamer} />
+        <MiniGamerMenu className={styles.miniGamerMenu} gamer={partner || gamer} />
+      </div>
       <div id="fieldContainer" className={styles.fieldContainer}
         onMouseDown={eventListeners.mouseDown}
         onMouseUp={eventListeners.mouseUp}
@@ -84,7 +84,12 @@ export default function FillingInField(): JSX.Element {
         onContextMenu={eventListeners.contextMenu}>
         <FieldComponent field={field} />
       </div>
-      <button className={styles.btnLeave}>leave</button>
+      <nav className={styles.navContainer}>
+        <nav className={styles.navContainer}>
+          <button className={styles.btnReadyToPlay}>ready to play</button>
+          <button className={styles.btnDisconnect}>leave</button>
+        </nav>
+      </nav>
     </div>
   )
 }
