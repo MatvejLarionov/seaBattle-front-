@@ -26,6 +26,7 @@ function App(): JSX.Element {
                 <Game />
               </GameDataContextProvider>
             } />
+            <Route path='*' element={<h1>Not found</h1>} />
           </Routes>
         </UserDataContextProvider>
       </Router>
