@@ -29,5 +29,7 @@ export type gamingSocket = Socket<
     movShip: (oldIndex: number, newIndex: number) => void
     turnClockwiseShip: (index: number) => void
     shoot: (index: number) => void
+
+    finishGame: () => void
   }
 >

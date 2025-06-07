@@ -8,6 +8,7 @@ import PreparingForGame from "./PreparingForGame/PreparingForGame";
 import FillingInField from "./FillingInField/FillingInField";
 import { Field } from "../../types/Field";
 import Battle from "./Battle/Battle";
+import EndGame from "./EndGame/EndGame";
 
 export default function Game(): JSX.Element {
   const { user } = useContext(UserDataContext)
@@ -16,7 +17,8 @@ export default function Game(): JSX.Element {
     [GameStage.connecting]: <Connecting />,
     [GameStage.preparingForGame]: <PreparingForGame />,
     [GameStage.fillingInField]: <FillingInField />,
-    [GameStage.battle]: <Battle />
+    [GameStage.battle]: <Battle />,
+    [GameStage.endGame]: <EndGame />
   }
   useEffect(() => {
     socket.connect()
@@ -30,7 +32,10 @@ export default function Game(): JSX.Element {
           newGamer.avatar !== undefined ? newGamer.avatar : gamer.avatar,
           newGamer.status !== undefined ? newGamer.status : gamer.status,
           newGamer.gameStage !== undefined ? newGamer.gameStage : gamer.gameStage,
-          newGamer.isStep !== undefined ? newGamer.isStep : gamer.isStep
+          newGamer.isStep !== undefined ? newGamer.isStep : gamer.isStep,
+          newGamer.numberOfHits !== undefined ? newGamer.numberOfHits : gamer.numberOfHits,
+          newGamer.numberOfMisses !== undefined ? newGamer.numberOfMisses : gamer.numberOfMisses,
+          newGamer.isWinner !== undefined ? newGamer.isWinner : gamer.isWinner,
         )
       })
     })
@@ -48,6 +53,9 @@ export default function Game(): JSX.Element {
           newPartner.status !== undefined ? newPartner.status : partner?.status || Status.connected,
           newPartner.gameStage !== undefined ? newPartner.gameStage : partner?.gameStage || GameStage.connecting,
           newPartner.isStep !== undefined ? newPartner.isStep : partner?.isStep || false,
+          newPartner.numberOfHits !== undefined ? newPartner.numberOfHits : partner?.numberOfHits || 0,
+          newPartner.numberOfMisses !== undefined ? newPartner.numberOfMisses : partner?.numberOfMisses || 0,
+          newPartner.isWinner !== undefined ? newPartner.isWinner : partner?.isWinner || false,
         )
       })
     })

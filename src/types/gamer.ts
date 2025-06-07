@@ -7,7 +7,10 @@ export default class Gamer {
     private _avatar: string,
     private _status: Status,
     private _gameStage: GameStage,
-    private _isStep: boolean = false
+    private _isStep: boolean = false,
+    private _numberOfHits: number = 0,
+    private _numberOfMisses: number = 0,
+    private _isWinner: boolean = false
   ) { }
   get login(): string {
     return this._login
@@ -38,6 +41,24 @@ export default class Gamer {
   }
   set isStep(value: boolean) {
     this._isStep = value
+  }
+  get numberOfHits(): number {
+    return this._numberOfHits
+  }
+  set numberOfHits(value: number) {
+    this._numberOfHits = value
+  }
+  get numberOfMisses(): number {
+    return this._numberOfMisses
+  }
+  set numberOfMisses(value: number) {
+    this._numberOfMisses = value
+  }
+  get isWinner(): boolean {
+    return this._isWinner
+  }
+  set isWinner(value: boolean) {
+    this._isWinner = value
   }
   toUser(): User {
     return { login: this.login, avatar: this.avatar, id: "" }
