@@ -7,6 +7,7 @@ export default class Gamer {
     private _avatar: string,
     private _status: Status,
     private _gameStage: GameStage,
+    private _isStep: boolean = false
   ) { }
   get login(): string {
     return this._login
@@ -31,6 +32,12 @@ export default class Gamer {
   }
   set gameStage(value: GameStage) {
     this._gameStage = value
+  }
+  get isStep(): boolean {
+    return this._isStep
+  }
+  set isStep(value: boolean) {
+    this._isStep = value
   }
   toUser(): User {
     return { login: this.login, avatar: this.avatar, id: "" }

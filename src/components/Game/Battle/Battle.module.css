@@ -1,0 +1,75 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  height: 90vh;
+}
+
+.miniGamerMenu {
+  flex-direction: row;
+  width: 120px;
+  height: 90px;
+  font-size: 10px;
+
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.gamerContainer,
+.partnerContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.partnerContainer {
+  align-items: flex-end;
+}
+
+.fieldContainer {
+  width: 40vw;
+  height: 40vw;
+}
+
+@media (max-width:100vh) {
+
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .gamerContainer {
+    order: 1;
+  }
+
+  .gamerContainer>.miniGamerMenu {
+    order: 1;
+  }
+
+  .fieldContainer {
+    width: 40vh;
+    height: 40vh;
+  }
+}
+
+@keyframes Backlight {
+  0% {
+    border-top-color: yellow;
+    border-left-color: yellow;
+    border-right-color: orange;
+    border-bottom-color: orange;
+  }
+
+  50% {
+    border-top-color: orange;
+    border-left-color: orange;
+    border-right-color: yellow;
+    border-bottom-color: yellow;
+  }
+
+  100% {
+    border-top-color: yellow;
+    border-left-color: yellow;
+    border-right-color: orange;
+    border-bottom-color: orange;
+  }
+}
