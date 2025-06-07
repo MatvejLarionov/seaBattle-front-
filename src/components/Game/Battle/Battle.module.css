@@ -28,6 +28,8 @@
 .fieldContainer {
   width: 40vw;
   height: 40vw;
+  flex-shrink: 0;
+  margin: 5px;
 }
 
 @media (max-width:100vh) {
@@ -41,13 +43,26 @@
     order: 1;
   }
 
+  .gamerContainer,
+  .partnerContainer {
+    align-items: center;
+  }
+
   .gamerContainer>.miniGamerMenu {
     order: 1;
   }
 
+  .miniGamerMenu {
+    height: 5vh;
+  }
+
+  .miniGamerMenu>div>img {
+    width: 35%;
+  }
+
   .fieldContainer {
-    width: 40vh;
-    height: 40vh;
+    width: 35vh;
+    height: 35vh;
   }
 }
 
