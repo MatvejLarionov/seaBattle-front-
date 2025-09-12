@@ -1,0 +1,26 @@
+.loader {
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-size: 50px;
+  color: aqua;
+
+
+  animation: Turn 3s infinite;
+  animation-timing-function: linear;
+}
+
+.loader>div {
+  width: 100%;
+  position: absolute;
+}
+
+@keyframes Turn {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

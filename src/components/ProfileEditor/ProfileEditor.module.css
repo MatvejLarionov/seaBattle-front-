@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+}
+.linksList{
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+  margin: 0 auto;
+  flex-basis: 400px;
+  border: 10px double green;
+  height: 220px;
+  border-radius: 15px;
+
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login,
+.password {
+  width: 80%;
+  height: 30px;
+  border: 2px solid aqua;
+  border-radius: 15px;
+}
+
+.login:focus,
+.password:focus {
+  outline: none;
+  border-color: green;
+}
+
+.submit {
+  border-radius: 15px;
+  border: none;
+  background-color: aqua;
+}
+.error{
+  margin: 0;
+  font-size: 10px;
+  color: red;
+}

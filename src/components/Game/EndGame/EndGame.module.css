@@ -1,0 +1,57 @@
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  font-size: 10vw;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.numberOfHits {
+  color: green;
+}
+
+.numberOfMisses {
+  color: red;
+}
+
+.btnFinish {
+  border: 10px double green;
+  color: green;
+  background-color: aqua;
+  border-radius: 15px;
+}
+
+@keyframes BacklightVictory {
+  0% {
+    color: orange;
+  }
+
+  50% {
+    color: yellow;
+  }
+
+  100% {
+    color: orange;
+  }
+}
+
+@keyframes BacklightLoss {
+  0% {
+    color: red;
+  }
+
+  50% {
+    color: blueviolet;
+  }
+
+  100% {
+    color: red;
+  }
+}
